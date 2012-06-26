@@ -1,10 +1,9 @@
-body {
-    width: 100%;
-}
 
 .main {
     width:960px;
+    min-height: 300px;
     margin: 0 auto;
+    padding: 30px 0 0;
 }
 
 h1 {
@@ -13,4 +12,16 @@ h1 {
 
 #logsContainer {
     width: 100%;
+}
+
+#pluginContainer {
+    position: fixed;
+    left: -10px;
+    width: 2px;
+}
+
+#installBtn {
+    margin: 10px auto;
+    display: none;
+    width: 150px;
 }
