@@ -6,8 +6,9 @@
     padding: 30px 0 0;
 }
 
-h1 {
+h1#tutorialTitle {
     text-align: center;
+    margin-bottom: 30px;
 }
 
 #logsContainer {
