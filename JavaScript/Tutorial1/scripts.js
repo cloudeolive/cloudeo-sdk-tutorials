@@ -12,6 +12,10 @@
  */
 CDOT.onDomReady = function () {
   log.debug('DOM loaded');
+  $("#initProgressBar").
+      progressbar({
+                    value:0
+                  });
   CDOT.initCloudeoLogging();
   CDOT.initializeCloudeo();
 };
@@ -24,6 +28,7 @@ CDOT.initializeCloudeo = function () {
   var initListener = new CDO.PlatformInitListener();
   initListener.onInitProgressChanged = function (e) {
     log.debug("Platform init progress: " + e.progress);
+    $("#initProgressBar").progressbar('value', e.progress);
   };
 
   initListener.onInitStateChanged = function (e) {
@@ -49,9 +54,6 @@ CDOT.initializeCloudeo = function () {
 };
 
 
-
-
-
 /**
  * ==========================================================================
  * Plug-in installation
@@ -65,7 +67,7 @@ CDOT.showInstallButton = function (url) {
   log.debug("Cloudeo plugin not installed; Getting the installation URL.");
   $('#installBtn').
       attr('href', url).
-      css('display','block');
+      css('display', 'block');
 };
 
 /**
@@ -73,7 +75,7 @@ CDOT.showInstallButton = function (url) {
  * @param {CDO.CloudeoService} service
  */
 CDOT.getVersion = function () {
-  var getVersionResult = function(version) {
+  var getVersionResult = function (version) {
     log.debug("Cloudeo service version: " + version);
     $('#sdkVersion').html(version);
   };

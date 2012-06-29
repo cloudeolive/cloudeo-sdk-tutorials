@@ -26,3 +26,8 @@ h1#tutorialTitle {
     display: none;
     width: 150px;
 }
+
+#initProgressBar {
+    width: 360px;
+    margin-bottom: 10px;
+}
