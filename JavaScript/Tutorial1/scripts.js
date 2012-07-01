@@ -21,7 +21,7 @@ CDOT.onDomReady = function () {
 };
 
 /**
- * Initializes the CloudeoServiceContainer.
+ * Initializes the Cloudeo SDK.
  */
 CDOT.initializeCloudeo = function () {
   log.debug("Initializing the Cloudeo SDK");

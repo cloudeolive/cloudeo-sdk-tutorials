@@ -28,17 +28,18 @@ CDOT.PLUGIN_CONTAINER_ID = 'pluginContainer';
 CDOT.initCloudeoLogging = function () {
   CDO.initLogging(function (lev, msg) {
     switch (lev) {
-      case "DEBUG":
+      case CDO.LogLevel.DEBUG:
         CDOT.log.debug("[CDO] " + msg);
         break;
-      case "WARN":
+      case CDO.LogLevel.WARN:
         CDOT.log.warn("[CDO] " + msg);
         break;
-      case "ERROR":
+      case CDO.LogLevel.ERROR:
         CDOT.log.error("[CDO] " + msg);
         break;
       default:
-        CDOT.log.error("Got unsupported log level: " + lev + ". Message: " + msg);
+        CDOT.log.error("Got unsupported log level: " + lev + ". Message: " +
+                           msg);
     }
   }, false);
 };
