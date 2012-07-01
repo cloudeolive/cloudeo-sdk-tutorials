@@ -65,9 +65,14 @@ CDOT.initializeCloudeo = function () {
 //      Note that the initialization process is just frozen in this state -
 //      the SDK polls for plug-in availability and when it becomes available,
 //      continues with the initialization.
+        log.debug("Cloudeo Plug-in installation required");
         $('#installBtn').
             attr('href', e.installerURL).
             css('display', 'block');
+        break;
+      case CDO.InitState.INSTALLATION_COMPLETE:
+        log.debug("Cloudeo Plug-in installation complete");
+        $('#installBtn').hide();
         break;
 
       case CDO.InitState.BROWSER_RESTART_REQUIRED:
