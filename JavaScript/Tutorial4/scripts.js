@@ -32,22 +32,6 @@ CDOT.onPlatformReady = function () {
 CDOT.startLocalVideo = function () {
   var resultHandler = function (sinkId) {
     log.debug("Local preview started. Rendering the sink with id: " + sinkId);
-//    <div id="renderContainer" class="render-wrapper">
-//
-//    </div>
-//
-//    <div id="renderContainerWindowed" class="render-wrapper">
-//
-//        </div>
-//
-//          <div id="renderContainerNotAMirror" class="render-wrapper">
-//
-//          </div>
-//
-//          <div id="renderContainerBicubic" class="render-wrapper">
-//
-//          </div>
-
     CDO.renderSink({
                      sinkId:sinkId,
                      containerId:'renderContainer'
@@ -71,7 +55,6 @@ CDOT.startLocalVideo = function () {
                      containerId:'renderContainerBicubic',
                      filterType:CDO.VideoScalingFilter.BICUBIC
                    });
-
   };
   CDO.getService().startLocalVideo(CDO.createResponder(resultHandler));
 };
