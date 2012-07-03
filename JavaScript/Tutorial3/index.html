@@ -16,7 +16,7 @@
   <!--src="http://s3.amazonaws.com/api.cloudeo/stable/cloudeo-sdk.min.js"></script>-->
 
   <script type="text/javascript"
-          src="http://s3.amazonaws.com/api.cloudeo/beta/cloudeo-sdk.min.js"></script>
+          src="http://s3.amazonaws.com/api.cloudeo/beta/cloudeo-sdk.js"></script>
 
   <!-- Tutorial - specific script file -->
   <script type="text/javascript" src="scripts.js"></script>
@@ -37,12 +37,13 @@
 
   <div class="controls-wrapper">
 
-  <!--Video capture device configuration -->
+    <!--Video capture device configuration -->
     <div class="ctrl-wrapper">
       <label for="camSelect">Video Capture device:</label>
       <select id="camSelect" class="ctrl">
         <option value="-1">Loading...</option>
       </select>
+
       <div class="clearer"></div>
     </div>
 
@@ -52,6 +53,7 @@
       <select id="micSelect" class="ctrl">
         <option value="-1">Loading...</option>
       </select>
+
       <div class="clearer"></div>
     </div>
 
@@ -61,6 +63,7 @@
       <select id="spkSelect" class="ctrl">
         <option value="-1">Loading...</option>
       </select>
+
       <div class="clearer"></div>
     </div>
 
@@ -71,9 +74,33 @@
       <div class="ctrl" id="volumeCtrlSlider"></div>
       <div class="clearer"></div>
     </div>
+
+    <!-- Playing of the test sound -->
     <div class="ctrl-wrapper">
-      <a id="playTestSoundBtn" href="javascript://nop" class="btn btn-primary disabled">Play test sound</a>
+      <a id="playTestSoundBtn" href="javascript://nop"
+         class="btn btn-primary disabled">Play test sound</a>
     </div>
+
+    <!-- Microphone gain configuration -->
+    <div class="ctrl-wrapper">
+      <label for="micGainCtrlSlider">Microphone gain:</label>
+
+      <div class="ctrl" id="micGainCtrlSlider"></div>
+      <div class="clearer"></div>
+    </div>
+
+    <!-- Mic activity monitoring -->
+    <div class="ctrl-wrapper">
+      <label for="micGainCtrlSlider">Microphone activity:</label>
+
+      <div class="ctrl">
+        <div id="micActivityBar"></div>
+        <input type="checkbox" id="micActivityEnabledChckbx"/> Monitoring enabled
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+
   </div>
 
 </div>
