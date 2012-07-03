@@ -59,3 +59,34 @@ h2#tutorialSubTitle {
 #micActivityBar {
     height: .8em;
 }
+
+
+.render-wrapper-outer {
+    margin: 0 5px 10px;
+    float:left;
+    width: 332px;
+}
+
+.render-wrapper {
+    width: 320px;
+    height: 240px;
+    padding: 5px;
+    border: 1px solid #333;
+    background: #999;
+
+}
+
+.rendering-wrapper {
+    width: 684px;
+    margin: 0 auto;
+}
+
+.windowed-windowless-showcase {
+    position: relative;
+    width: 128px;
+    height: 128px;
+    background: rgba(255, 0, 0, 0.5);
+    z-index: 100;
+    top: 355px;
+    left: 280px;
+}
