@@ -66,3 +66,39 @@ CDOT.initializeCloudeoQuick = function (completeHandler) {
   CDO.initPlatform(initListener);
 };
 
+
+CDOT.initDevicesSelects = function () {
+  $('#camSelect').change(CDOT.onCamSelected);
+  $('#micSelect').change(CDOT.onMicSelected);
+  $('#spkSelect').change(CDOT.onSpkSelected);
+};
+
+/**
+ * Fills the selects with the currently plugged in devices.
+ */
+CDOT.populateDevicesQuick = function () {
+  CDOT.populateDevicesOfType('#camSelect', 'VideoCapture');
+  CDOT.populateDevicesOfType('#micSelect', 'AudioCapture');
+  CDOT.populateDevicesOfType('#spkSelect', 'AudioOutput');
+};
+
+/**
+ * Fills the audio output devices select.
+ */
+CDOT.populateDevicesOfType = function (selectSelector, devType) {
+  var devsResultHandler = function (devs) {
+    var $select = $(selectSelector);
+    $select.empty();
+    $.each(devs, function (devId, devLabel) {
+      $('<option value="' + devId + '">' + devLabel + '</option>').
+          appendTo($select);
+    });
+    var getDeviceHandler = function (device) {
+      $select.val(device);
+    };
+    CDO.getService()['get' + devType + 'Device'](
+        CDO.createResponder(getDeviceHandler));
+  };
+  CDO.getService()['get' + devType + 'DeviceNames'](
+      CDO.createResponder(devsResultHandler));
+};
