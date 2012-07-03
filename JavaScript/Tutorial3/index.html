@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cloudeo SDK Tutorial 2 - Devices configuration</title>
+  <title>Cloudeo SDK Tutorial 2</title>
 
   <!--Common scripts for all cloudeo tutorials -->
   <script type="text/javascript"
@@ -9,6 +9,8 @@
   <script type="text/javascript"
           src="../shared-assets/jquery-1.7.1.min.js"></script>
   <script type="text/javascript" src="../shared-assets/scripts.js"></script>
+  <script type="text/javascript"
+          src="../shared-assets/jquery-ui-1.8.21.custom.min.js"></script>
 
   <!--<script type="text/javascript"-->
   <!--src="http://s3.amazonaws.com/api.cloudeo/stable/cloudeo-sdk.min.js"></script>-->
@@ -24,33 +26,53 @@
   <link rel="stylesheet" type="text/css" href="../shared-assets/styles.css"/>
   <link rel="stylesheet" type="text/css"
         href="../shared-assets/bootstrap.min.css"/>
-
+  <link rel="stylesheet" type="text/css"
+        href="../shared-assets/jquery-ui-css/start/jquery-ui-1.8.21.custom.css"/>
 </head>
 <body>
 <div class="main">
-  <h1 id="tutorialTitle">Cloudeo SDK Tutorial 2 - Devices configuration</h1>
+  <h1 id="tutorialTitle">Cloudeo SDK Tutorial 3</h1>
 
-  <div class="selects-wrapper">
-    <div class="select-wrapper">
+  <h2 id="tutorialSubTitle">Advanced devices handling</h2>
+
+  <div class="controls-wrapper">
+
+  <!--Video capture device configuration -->
+    <div class="ctrl-wrapper">
       <label for="camSelect">Video Capture device:</label>
-      <select id="camSelect">
-        <option value="-1">-- Select --</option>
+      <select id="camSelect" class="ctrl">
+        <option value="-1">Loading...</option>
       </select>
       <div class="clearer"></div>
     </div>
-    <div class="select-wrapper">
+
+    <!--Audio capture device configuration -->
+    <div class="ctrl-wrapper">
       <label for="micSelect">Audio Capture device:</label>
-      <select id="micSelect">
-        <option value="-1">-- Select --</option>
+      <select id="micSelect" class="ctrl">
+        <option value="-1">Loading...</option>
       </select>
       <div class="clearer"></div>
     </div>
-    <div class="select-wrapper">
+
+    <!--Audio output device configuration -->
+    <div class="ctrl-wrapper">
       <label for="spkSelect">Audio Output device:</label>
-      <select id="spkSelect">
-        <option value="-1">-- Select --</option>
+      <select id="spkSelect" class="ctrl">
+        <option value="-1">Loading...</option>
       </select>
       <div class="clearer"></div>
+    </div>
+
+    <!--Volume  configuration -->
+    <div class="ctrl-wrapper">
+      <label for="volumeCtrlSlider">Volume Control:</label>
+
+      <div class="ctrl" id="volumeCtrlSlider"></div>
+      <div class="clearer"></div>
+    </div>
+    <div class="ctrl-wrapper">
+      <a id="playTestSoundBtn" href="javascript://nop" class="btn btn-primary disabled">Play test sound</a>
     </div>
   </div>
 

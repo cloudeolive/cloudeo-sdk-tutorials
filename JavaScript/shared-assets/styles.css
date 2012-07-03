@@ -9,6 +9,11 @@ h1#tutorialTitle {
     text-align: center;
     margin-bottom: 30px;
 }
+h2#tutorialSubTitle {
+    text-align: center;
+    margin-bottom: 30px;
+    display: block;
+}
 
 #logsContainer {
     width: 100%;
@@ -35,18 +40,18 @@ h1#tutorialTitle {
     clear: both;
 }
 
-.select-wrapper label, .select-wrapper select {
+.ctrl-wrapper label, .ctrl-wrapper .ctrl {
     float: left;
     margin-right: 5px;
 
 }
 
-.select-wrapper label {
+.ctrl-wrapper label {
     width: 140px;
     display: block;
     padding-top: 3px;
 }
 
-.select-wrapper select {
+.ctrl-wrapper .ctrl {
     width: 300px;
 }

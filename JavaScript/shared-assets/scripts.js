@@ -68,9 +68,18 @@ CDOT.initializeCloudeoQuick = function (completeHandler) {
 
 
 CDOT.initDevicesSelects = function () {
-  $('#camSelect').change(CDOT.onCamSelected);
-  $('#micSelect').change(CDOT.onMicSelected);
-  $('#spkSelect').change(CDOT.onSpkSelected);
+  $('#camSelect').change(CDOT.getDevChangedHandler('VideoCapture'));
+  $('#micSelect').change(CDOT.getDevChangedHandler('AudioCapture'));
+  $('#spkSelect').change(CDOT.getDevChangedHandler('AudioOutput'));
+};
+
+CDOT.getDevChangedHandler = function (devType) {
+  return function () {
+    var selectedDev = $(this).val();
+    CDO.getService()['set' + devType + 'Device'](
+        CDO.createResponder(),
+        selectedDev);
+  };
 };
 
 /**
