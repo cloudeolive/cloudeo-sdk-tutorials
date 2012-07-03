@@ -12,19 +12,37 @@
  */
 CDOT.onDomReady = function () {
   log.debug('DOM loaded');
+  CDOT.initUI();
   CDOT.initCloudeoLogging();
   CDOT.initializeCloudeoQuick(CDOT.populateDevices);
 };
 
+/**
+ * Initializes the UI components, by binding to the change events of the selects
+ * provided.
+ */
+CDOT.initUI = function () {
+  $('#camSelect').change(CDOT.onCamSelected);
+  $('#micSelect').change(CDOT.onMicSelected);
+  $('#spkSelect').change(CDOT.onSpkSelected);
+};
+
+/**
+ * Fills the selects with the currently plugged in devices.
+ */
 CDOT.populateDevices = function () {
   CDOT.populateVideoCaptureDevices();
   CDOT.populateAudioCaptureDevices();
   CDOT.populateAudioOutputDevices();
 };
 
+/**
+ * Fills the audio output devices select.
+ */
 CDOT.populateAudioOutputDevices = function () {
   var spkrsResultHandler = function (devs) {
     var $select = $('#spkSelect');
+    $select.empty();
     $.each(devs, function (devId, devLabel) {
       $('<option value="' + devId + '">' + devLabel + '</option>').
           appendTo($select);
@@ -39,9 +57,13 @@ CDOT.populateAudioOutputDevices = function () {
       CDO.createResponder(spkrsResultHandler));
 };
 
+/**
+ * Fills the audio capture devices select.
+ */
 CDOT.populateAudioCaptureDevices = function () {
   var micsResultHandler = function (devs) {
     var $select = $('#micSelect');
+    $select.empty();
     $.each(devs, function (devId, devLabel) {
       $('<option value="' + devId + '">' + devLabel + '</option>').
           appendTo($select);
@@ -56,9 +78,13 @@ CDOT.populateAudioCaptureDevices = function () {
       CDO.createResponder(micsResultHandler));
 };
 
+/**
+ * Fills the video capture devices select.
+ */
 CDOT.populateVideoCaptureDevices = function () {
   var webcamsResultHandler = function (devs) {
     var $select = $('#camSelect');
+    $select.empty();
     $.each(devs, function (devId, devLabel) {
       $('<option value="' + devId + '">' + devLabel + '</option>').
           appendTo($select);
@@ -72,6 +98,31 @@ CDOT.populateVideoCaptureDevices = function () {
   CDO.getService().getVideoCaptureDeviceNames(
       CDO.createResponder(webcamsResultHandler));
 };
+
+/**
+ * Handles the change event of the video capture devices select.
+ */
+CDOT.onCamSelected = function () {
+  var selected = $(this).val();
+  CDO.getService().setVideoCaptureDevice(selected);
+};
+
+/**
+ * Handles the change event of the audio capture devices select.
+ */
+CDOT.onMicSelected = function () {
+  var selected = $(this).val();
+  CDO.getService().setAudioCaptureDevice(selected);
+};
+
+/**
+ * Handles the change event of the audio output devices select.
+ */
+CDOT.onSpkSelected = function () {
+  var selected = $(this).val();
+  CDO.getService().setAudioOutputDevice(selected);
+};
+
 
 /**
  * Register the document ready handler.
