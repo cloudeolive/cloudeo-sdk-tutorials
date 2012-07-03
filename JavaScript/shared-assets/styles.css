@@ -31,3 +31,19 @@ h1#tutorialTitle {
     width: 360px;
     margin-bottom: 10px;
 }
+
+.clearer {
+    clear: both;
+}
+
+.select-wrapper label, .select-wrapper select{
+    float: left;
+    margin-right: 5px;
+
+}
+
+.select-wrapper label {
+    width: 140px;
+    display: block;
+    padding-top: 3px;
+}

@@ -43,3 +43,31 @@ CDOT.initCloudeoLogging = function () {
     }
   }, false);
 };
+
+/**
+ * Initializes the Cloudeo SDK.
+ */
+CDOT.initializeCloudeoQuick = function (completeHandler) {
+  log.debug("Initializing the Cloudeo SDK");
+  var initListener = new CDO.PlatformInitListener();
+  initListener.onInitStateChanged = function (e) {
+    switch (e.state) {
+      case CDO.InitState.ERROR:
+        log.error("Failed to initialize the Cloudeo SDK");
+        log.error("Reason: " + e.errMessage + ' (' + e.errCode + ')');
+        break;
+      case CDO.InitState.INITIALIZED:
+        var getVersionResult = function (version) {
+          log.debug("Cloudeo service version: " + version);
+          $('#sdkVersion').html(version);
+        };
+        var responder = CDO.createResponder(getVersionResult);
+        CDO.getService().getVersion(responder);
+        break;
+      default:
+        log.error("Got unsupported init state: " + e.state);
+    }
+  };
+  CDO.initPlatform(initListener);
+};
+

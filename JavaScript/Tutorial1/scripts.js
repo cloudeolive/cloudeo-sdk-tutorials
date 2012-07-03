@@ -1,11 +1,11 @@
 /**
  * @fileoverview
- * @TODO file description
+ *
+ * Contains implementation of logic required by the Tutorial 1.
  *
  * @author Tadeusz Kozak
  * @date 26-06-2012 10:37
  */
-
 
 /**
  * Document ready callback - starts the Cloudeo platform initialization.
