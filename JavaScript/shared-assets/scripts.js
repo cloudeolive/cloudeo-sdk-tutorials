@@ -41,7 +41,7 @@ CDOT.initCloudeoLogging = function () {
         CDOT.log.error("Got unsupported log level: " + lev + ". Message: " +
                            msg);
     }
-  }, false);
+  }, true);
 };
 
 /**
@@ -57,12 +57,7 @@ CDOT.initializeCloudeoQuick = function (completeHandler) {
         log.error("Reason: " + e.errMessage + ' (' + e.errCode + ')');
         break;
       case CDO.InitState.INITIALIZED:
-        var getVersionResult = function (version) {
-          log.debug("Cloudeo service version: " + version);
-          $('#sdkVersion').html(version);
-        };
-        var responder = CDO.createResponder(getVersionResult);
-        CDO.getService().getVersion(responder);
+        completeHandler();
         break;
       default:
         log.error("Got unsupported init state: " + e.state);

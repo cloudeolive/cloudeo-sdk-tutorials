@@ -1,6 +1,5 @@
-
 .main {
-    width:960px;
+    width: 960px;
     min-height: 300px;
     margin: 0 auto;
     padding: 30px 0 0;
@@ -36,7 +35,7 @@ h1#tutorialTitle {
     clear: both;
 }
 
-.select-wrapper label, .select-wrapper select{
+.select-wrapper label, .select-wrapper select {
     float: left;
     margin-right: 5px;
 
@@ -46,4 +45,8 @@ h1#tutorialTitle {
     width: 140px;
     display: block;
     padding-top: 3px;
+}
+
+.select-wrapper select {
+    width: 300px;
 }
