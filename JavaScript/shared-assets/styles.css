@@ -76,17 +76,18 @@ h2#tutorialSubTitle {
 
 }
 
-.rendering-wrapper {
+.rendering-wrapper, #tut4CtrlWrapper {
     width: 684px;
-    margin: 0 auto;
+    margin: 0 auto 20px;
+    position: relative;
 }
 
 .windowed-windowless-showcase {
-    position: relative;
+    position: absolute;
     width: 128px;
     height: 128px;
     background: rgba(255, 0, 0, 0.5);
     z-index: 100;
-    top: 355px;
+    top: 225px;
     left: 280px;
 }
