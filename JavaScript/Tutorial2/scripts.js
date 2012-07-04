@@ -19,7 +19,7 @@ CDOT.onDomReady = function () {
 
 /**
  * Initializes the UI components, by binding to the change events of the selects
- * provided.
+ * provided by the UI.
  */
 CDOT.initUI = function () {
   $('#camSelect').change(CDOT.onCamSelected);
@@ -40,19 +40,30 @@ CDOT.populateDevices = function () {
  * Fills the audio output devices select.
  */
 CDOT.populateAudioOutputDevices = function () {
+//  Step 1. Define the speakers list result handler
   var spkrsResultHandler = function (devs) {
     var $select = $('#spkSelect');
+//    1. Clear the select to remove the "Loading..." item
     $select.empty();
+
+//    2. Fill the select with options corresponding to the devices returned by
+//       the Cloudeo SDK
     $.each(devs, function (devId, devLabel) {
       $('<option value="' + devId + '">' + devLabel + '</option>').
           appendTo($select);
     });
+
+//    3. Create the result handler that sets the currently used device
     var getDeviceHandler = function (device) {
       $select.val(device);
     };
+
+//    4. Get the currently used speakers
     CDO.getService().getAudioOutputDevice(
         CDO.createResponder(getDeviceHandler));
   };
+
+//  Step 0. Get all the devices
   CDO.getService().getAudioOutputDeviceNames(
       CDO.createResponder(spkrsResultHandler));
 };
