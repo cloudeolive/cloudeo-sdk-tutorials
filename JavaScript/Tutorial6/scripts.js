@@ -38,7 +38,13 @@ CDOT.onDomReady = function () {
   log.debug('DOM loaded');
   CDOT.initCloudeoLogging();
   CDOT.initDevicesSelects();
+  CDOT.initUI();
   CDOT.initializeCloudeoQuick(CDOT.onPlatformReady);
+};
+
+CDOT.initUI = function () {
+  $('#publishAudioChckbx').change(CDOT.onPublishAudioChanged);
+  $('#publishVideoChckbx').change(CDOT.onPublishVideoChanged);
 };
 
 CDOT.onPlatformReady = function () {
@@ -72,7 +78,7 @@ CDOT.initServiceListener = function () {
         renderer.find('.no-video-text').show();
       }
 
-      if(!e.audioPublished) {
+      if (!e.audioPublished) {
         renderer.find('.muted-indicator').show();
       }
 
@@ -134,10 +140,34 @@ CDOT.disconnect = function () {
     $('#localUserIdLbl').html('undefined');
     $('#connTypeLbl').html('none');
     $('#renderingWrapper .remote-renderer').remove();
+    CDOT.scopeId = undefined;
   };
   CDO.getService().disconnect(CDO.createResponder(onSucc), CDOT.scopeId);
 };
 
+
+CDOT.onPublishAudioChanged = function () {
+  if (CDOT.scopeId) {
+    if ($(this).is(':checked')) {
+      CDO.getService().publish(CDO.createResponder(), CDOT.scopeId,
+                               CDO.MediaType.AUDIO);
+    } else {
+      CDO.getService().unpublish(CDO.createResponder(), CDOT.scopeId,
+                               CDO.MediaType.AUDIO);
+    }
+  }
+};
+CDOT.onPublishVideoChanged = function () {
+  if (CDOT.scopeId) {
+    if ($(this).is(':checked')) {
+      CDO.getService().publish(CDO.createResponder(), CDOT.scopeId,
+                               CDO.MediaType.VIDEO);
+    } else {
+      CDO.getService().unpublish(CDO.createResponder(), CDOT.scopeId,
+                               CDO.MediaType.VIDEO);
+    }
+  }
+};
 
 /**
  * Register the document ready handler.

@@ -115,3 +115,7 @@ h2#tutorialSubTitle {
 #scopeIdTxtField {
     margin-top: 5px;
 }
+
+.muted-indicator {
+    display: none;
+}
