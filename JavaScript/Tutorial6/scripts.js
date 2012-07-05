@@ -122,6 +122,25 @@ CDOT.initServiceListener = function () {
     }
   };
 
+  listener.mediaConnType2Label = {};
+  listener.mediaConnType2Label[CDO.ConnectionType.NOT_CONNECTED] =
+      'not connected';
+  listener.mediaConnType2Label[CDO.ConnectionType.TCP_RELAY] =
+      'RTP/TCP relayed';
+  listener.mediaConnType2Label[CDO.ConnectionType.UDP_RELAY] =
+      'RTP/UDP relayed';
+  listener.mediaConnType2Label[CDO.ConnectionType.UDP_P2P] =
+      'RTP/UDP in P2P';
+
+
+  /**
+   *
+   * @param {CDO.MediaConnTypeChangedEvent} e
+   */
+  listener.onMediaConnTypeChanged = function (e) {
+    $('#connTypeLbl').html(listener.mediaConnType2Label[e.connectionType]);
+  };
+
   var onSucc = function () {
     $('#connectBtn').click(CDOT.connect).removeClass('disabled');
   };
