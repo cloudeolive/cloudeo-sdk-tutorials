@@ -93,7 +93,27 @@ CDOT.initServiceListener = function () {
    * @param {CDO.UserStateChangedEvent} e
    */
   listener.onMediaStreamEvent = function (e) {
+    switch (e.mediaType) {
+      case CDO.MediaType.AUDIO:
+        var muteIndicator = $('#rendererOuter' + e.userId).
+            find('.muted-indicator');
+        if (e.audioPublished) {
+          muteIndicator.hide();
+        } else {
+          muteIndicator.show();
+        }
+        break;
+      case CDO.MediaType.VIDEO:
+        if (e.videoPublished) {
 
+        } else {
+
+        }
+        break;
+      default :
+        log.warn('Got unsupported media type in media stream event: ' +
+                     e.mediaType);
+    }
   };
 
   var onSucc = function () {
@@ -153,7 +173,7 @@ CDOT.onPublishAudioChanged = function () {
                                CDO.MediaType.AUDIO);
     } else {
       CDO.getService().unpublish(CDO.createResponder(), CDOT.scopeId,
-                               CDO.MediaType.AUDIO);
+                                 CDO.MediaType.AUDIO);
     }
   }
 };
@@ -164,7 +184,7 @@ CDOT.onPublishVideoChanged = function () {
                                CDO.MediaType.VIDEO);
     } else {
       CDO.getService().unpublish(CDO.createResponder(), CDOT.scopeId,
-                               CDO.MediaType.VIDEO);
+                                 CDO.MediaType.VIDEO);
     }
   }
 };
