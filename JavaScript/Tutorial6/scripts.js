@@ -104,10 +104,16 @@ CDOT.initServiceListener = function () {
         }
         break;
       case CDO.MediaType.VIDEO:
+        var rendererOuter = $('#rendererOuter' + e.userId);
         if (e.videoPublished) {
-
+          CDO.renderSink({
+                           sinkId:e.videoSinkId,
+                           containerId:'renderer' + e.userId
+                         });
+          rendererOuter.find('.no-video-text').hide();
         } else {
-
+          rendererOuter.find('.render-wrapper').empty();
+          rendererOuter.find('.no-video-text').show();
         }
         break;
       default :
