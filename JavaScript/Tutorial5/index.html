@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cloudeo SDK Tutorial 5 - Basic connectivity</title>
+
+  <!--Common scripts for all cloudeo tutorials -->
+  <script type="text/javascript"
+          src="../shared-assets/log4javascript.js"></script>
+  <script type="text/javascript"
+          src="../shared-assets/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="../shared-assets/scripts.js"></script>
+
+  <!--<script type="text/javascript"-->
+  <!--src="http://s3.amazonaws.com/api.cloudeo/stable/cloudeo-sdk.min.js"></script>-->
+
+  <script type="text/javascript"
+          src="http://s3.amazonaws.com/api.cloudeo/beta/cloudeo-sdk.min.js"></script>
+
+  <!-- Tutorial - specific script file -->
+  <script type="text/javascript" src="scripts.js"></script>
+
+
+  <!-- Shared stylesheet -->
+  <link rel="stylesheet" type="text/css" href="../shared-assets/styles.css"/>
+  <link rel="stylesheet" type="text/css"
+        href="../shared-assets/bootstrap.min.css"/>
+
+</head>
+<body>
+<div class="main">
+  <h1 id="tutorialTitle">Cloudeo SDK Tutorial 5</h1>
+
+  <h2 id="tutorialSubTitle">Basic connectivity</h2>
+
+  <div class="rendering-wrapper">
+
+    <div class="render-wrapper-outer">
+      <div>Local preview (user id: <span id="localUserIdLbl">undefined</span>)</div>
+      <div id="renderLocalPreview" class="render-wrapper"></div>
+    </div>
+
+    <div class="render-wrapper-outer">
+      <div>Remote user (user id: <span id="remoteUserIdLbl">undefined</span>)</div>
+      <div id="renderRemoteUser" class="render-wrapper"></div>
+    </div>
+    <div class="clearer"></div>
+  </div>
+
+  <div id="tut4CtrlWrapper" class="controls-wrapper">
+
+    <div class="controls-wrapper">
+
+      <!--Connect disconnect buttons -->
+      <div class="ctrl-wrapper">
+        <a id="connectBtn" href="javascript://nop"
+           class="btn btn-primary disabled">Connect</a>
+        <a id="disconnectBtn" href="javascript://nop"
+           class="btn btn-danger disabled">Disconnect</a>
+      </div>
+
+      <!--Video capture device configuration -->
+      <div class="ctrl-wrapper">
+        <label for="camSelect">Video Capture device:</label>
+        <select id="camSelect" class="ctrl">
+          <option value="-1">Loading...</option>
+        </select>
+
+        <div class="clearer"></div>
+      </div>
+
+      <!--Audio capture device configuration -->
+      <div class="ctrl-wrapper">
+        <label for="micSelect">Audio Capture device:</label>
+        <select id="micSelect" class="ctrl">
+          <option value="-1">Loading...</option>
+        </select>
+
+        <div class="clearer"></div>
+      </div>
+
+      <!--Audio output device configuration -->
+      <div class="ctrl-wrapper">
+        <label for="spkSelect">Audio Output device:</label>
+        <select id="spkSelect" class="ctrl">
+          <option value="-1">Loading...</option>
+        </select>
+
+        <div class="clearer"></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<div id="logsContainer"></div>
+</body>
+</html>
