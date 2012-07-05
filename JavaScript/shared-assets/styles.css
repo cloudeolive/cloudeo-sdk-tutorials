@@ -5,10 +5,16 @@
     padding: 30px 0 30px;;
 }
 
+.main.wide {
+    width: 1026px;
+
+}
+
 h1#tutorialTitle {
     text-align: center;
     margin-bottom: 30px;
 }
+
 h2#tutorialSubTitle {
     text-align: center;
     margin-bottom: 30px;
@@ -40,6 +46,10 @@ h2#tutorialSubTitle {
     clear: both;
 }
 
+.ctrl-wrapper {
+    margin-bottom: 10px;
+}
+
 .ctrl-wrapper label, .ctrl-wrapper .ctrl {
     float: left;
     margin-right: 5px;
@@ -60,10 +70,9 @@ h2#tutorialSubTitle {
     height: .8em;
 }
 
-
 .render-wrapper-outer {
     margin: 0 5px 10px;
-    float:left;
+    float: left;
     width: 332px;
 }
 
@@ -81,6 +90,10 @@ h2#tutorialSubTitle {
     position: relative;
 }
 
+.main.wide .rendering-wrapper {
+    width: 1026px;
+}
+
 .windowed-windowless-showcase {
     position: absolute;
     width: 128px;
@@ -89,4 +102,16 @@ h2#tutorialSubTitle {
     z-index: 100;
     top: 225px;
     left: 280px;
+}
+
+#templatesContainer {
+    display: none;
+}
+
+.no-video-text {
+    display: none;
+}
+
+#scopeIdTxtField {
+    margin-top: 5px;
 }

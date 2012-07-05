@@ -111,3 +111,7 @@ CDOT.populateDevicesOfType = function (selectSelector, devType) {
   CDO.getService()['get' + devType + 'DeviceNames'](
       CDO.createResponder(devsResultHandler));
 };
+
+CDOT.genRandomUserId = function () {
+  return Math.floor(Math.random() * 10000)
+};
