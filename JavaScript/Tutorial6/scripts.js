@@ -27,9 +27,7 @@ CDOT.CONNECTION_CONFIGURATION = {
     maxHeight:240,
     maxBitRate:400,
     maxFps:15
-  },
-  autopublishVideo:true,
-  autopublishAudio:true
+  }
 };
 
 
@@ -38,9 +36,9 @@ CDOT.CONNECTION_CONFIGURATION = {
  */
 CDOT.onDomReady = function () {
   log.debug('DOM loaded');
-//  CDOT.initCloudeoLogging();
-//  CDOT.initDevicesSelects();
-//  CDOT.initializeCloudeoQuick(CDOT.onPlatformReady);
+  CDOT.initCloudeoLogging();
+  CDOT.initDevicesSelects();
+  CDOT.initializeCloudeoQuick(CDOT.onPlatformReady);
 };
 
 CDOT.onPlatformReady = function () {
@@ -60,15 +58,35 @@ CDOT.initServiceListener = function () {
   listener.onUserEvent = function (e) {
     log.debug("Got new user event: " + e.userId);
     if (e.isConnected) {
-      CDO.renderSink({
-                       sinkId:e.videoSinkId,
-                       containerId:'renderRemoteUser'
-                     });
-      $('#remoteUserIdLbl').html(e.userId);
+      var renderer = $('#rendererTmpl').clone();
+      renderer.attr('id', 'rendererOuter' + e.userId);
+      renderer.find('.render-wrapper').attr('id', 'renderer' + e.userId);
+      renderer.find('.user-id-wrapper').html(e.userId);
+      $('#renderingWrapper').append(renderer);
+      if (e.videoPublished) {
+        CDO.renderSink({
+                         sinkId:e.videoSinkId,
+                         containerId:'renderer' + e.userId
+                       });
+      } else {
+        renderer.find('.no-video-text').show();
+      }
+
+      if(!e.audioPublished) {
+        renderer.find('.muted-indicator').show();
+      }
+
     } else {
-      $('#renderRemoteUser').empty();
-      $('#remoteUserIdLbl').html('undefined');
+      $('#rendererOuter' + e.userId).html('').remove();
     }
+
+  };
+
+  /**
+   *
+   * @param {CDO.UserStateChangedEvent} e
+   */
+  listener.onMediaStreamEvent = function (e) {
 
   };
 
@@ -93,8 +111,11 @@ CDOT.startLocalVideo = function () {
 
 CDOT.connect = function () {
   var connDescriptor = $.extend({}, CDOT.CONNECTION_CONFIGURATION);
-  connDescriptor.url = CDOT.STREAMER_URL_PFX + CDOT.SCOPE_ID;
+  CDOT.scopeId = $('#scopeIdTxtField').val();
+  connDescriptor.url = CDOT.STREAMER_URL_PFX + CDOT.scopeId;
   connDescriptor.token = CDOT.genRandomUserId() + '';
+  connDescriptor.autopublishAudio = $('#publishAudioChckbx').is(':checked');
+  connDescriptor.autopublishVideo = $('#publishVideoChckbx').is(':checked');
   var onSucc = function () {
     log.debug("Connected. Disabling connect button and enabling the disconnect");
     $('#connectBtn').unbind('click').addClass('disabled');
@@ -111,8 +132,10 @@ CDOT.disconnect = function () {
     $('#renderRemoteUser').empty();
     $('#remoteUserIdLbl').html('undefined');
     $('#localUserIdLbl').html('undefined');
+    $('#connTypeLbl').html('none');
+    $('#renderingWrapper .remote-renderer').remove();
   };
-  CDO.getService().disconnect(CDO.createResponder(onSucc), CDOT.SCOPE_ID);
+  CDO.getService().disconnect(CDO.createResponder(onSucc), CDOT.scopeId);
 };
 
 
