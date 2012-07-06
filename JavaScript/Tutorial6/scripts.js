@@ -141,11 +141,40 @@ CDOT.initServiceListener = function () {
     $('#connTypeLbl').html(listener.mediaConnType2Label[e.connectionType]);
   };
 
+  /**
+   *
+   * @param {CDO.ConnectionLostEvent} e
+   */
+  listener.onConnectionLost = function (e) {
+    log.error('Got connection lost notification');
+    if (e.errCode == CDO.ErrorCodes.Communication.COMM_REMOTE_END_DIED) {
+      log.warn('Connection terminated due to internet connection issues. ' +
+                   'Trying to reconnect in N secs');
+      CDOT.disconnectHandler();
+      CDOT.tryReconnect();
+    }
+  };
+
   var onSucc = function () {
     $('#connectBtn').click(CDOT.connect).removeClass('disabled');
   };
   CDO.getService().addServiceListener(CDO.createResponder(onSucc), listener);
 
+};
+
+
+CDOT.tryReconnect = function () {
+  setTimeout(function () {
+    log.debug("Retrying connection");
+    var succHandler = function () {
+      CDOT.postConnectHandler(CDOT.currentConnDescriptor);
+    };
+    var errHandler = function () {
+      CDOT.tryReconnect();
+    };
+    CDO.getService().connect(CDO.createResponder(succHandler, errHandler),
+    CDOT.currentConnDescriptor);
+  }, 5000);
 };
 
 CDOT.startLocalVideo = function () {
@@ -168,28 +197,40 @@ CDOT.connect = function () {
   connDescriptor.autopublishAudio = $('#publishAudioChckbx').is(':checked');
   connDescriptor.autopublishVideo = $('#publishVideoChckbx').is(':checked');
   var onSucc = function () {
-    log.debug("Connected. Disabling connect button and enabling the disconnect");
-    $('#connectBtn').unbind('click').addClass('disabled');
-    $('#disconnectBtn').click(CDOT.disconnect).removeClass('disabled');
-    $('#localUserIdLbl').html(connDescriptor.token);
+    CDOT.postConnectHandler(connDescriptor);
   };
   CDO.getService().connect(CDO.createResponder(onSucc), connDescriptor);
 };
 
 CDOT.disconnect = function () {
-  var onSucc = function () {
-    $('#connectBtn').click(CDOT.connect).removeClass('disabled');
-    $('#disconnectBtn').unbind('click').addClass('disabled');
-    $('#renderRemoteUser').empty();
-    $('#remoteUserIdLbl').html('undefined');
-    $('#localUserIdLbl').html('undefined');
-    $('#connTypeLbl').html('none');
-    $('#renderingWrapper .remote-renderer').remove();
+  function succHandler() {
     CDOT.scopeId = undefined;
-  };
-  CDO.getService().disconnect(CDO.createResponder(onSucc), CDOT.scopeId);
+    CDOT.currentConnDescriptor = undefined;
+    CDOT.disconnectHandler();
+  }
+
+  CDO.getService().disconnect(CDO.createResponder(succHandler),
+                              CDOT.scopeId);
 };
 
+CDOT.disconnectHandler = function () {
+  $('#connectBtn').click(CDOT.connect).removeClass('disabled');
+  $('#disconnectBtn').unbind('click').addClass('disabled');
+  $('#renderRemoteUser').empty();
+  $('#remoteUserIdLbl').html('undefined');
+  $('#localUserIdLbl').html('undefined');
+  $('#connTypeLbl').html('none');
+  $('#renderingWrapper .remote-renderer').remove();
+};
+
+CDOT.postConnectHandler = function (connDescriptor) {
+  log.debug("Connected. Disabling connect button and enabling the disconnect");
+  $('#connectBtn').unbind('click').addClass('disabled');
+  $('#disconnectBtn').click(CDOT.disconnect).removeClass('disabled');
+  $('#localUserIdLbl').html(connDescriptor.token);
+  CDOT.currentConnDescriptor = connDescriptor;
+
+};
 
 CDOT.onPublishAudioChanged = function () {
   if (CDOT.scopeId) {
