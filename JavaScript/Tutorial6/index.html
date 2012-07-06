@@ -14,7 +14,7 @@
   <!--src="http://s3.amazonaws.com/api.cloudeo/stable/cloudeo-sdk.min.js"></script>-->
 
   <script type="text/javascript"
-  src="http://s3.amazonaws.com/api.cloudeo/beta/cloudeo-sdk.js"></script>
+          src="http://s3.amazonaws.com/api.cloudeo/beta/cloudeo-sdk.js"></script>
 
   <!-- Tutorial - specific script file -->
   <script type="text/javascript" src="scripts.js"></script>
@@ -32,17 +32,24 @@
 
   <h2 id="tutorialSubTitle">Conference app</h2>
 
+  <!-- Beginning of the video feeds rendering section -->
   <div id="renderingWrapper" class="rendering-wrapper">
 
-    <div class="render-wrapper-outer">
+    <div class="render-widget">
       <div>Local preview (user id: <span id="localUserIdLbl">undefined</span>)
       </div>
       <div id="renderLocalPreview" class="render-wrapper"></div>
     </div>
   </div>
+  <!-- End of the video feeds rendering section -->
+
+  <!-- Clearer to clear the floating state of the renderers -->
   <div class="clearer"></div>
+
+  <!-- Connection type label. -->
   <p>Connection type: <span id="connTypeLbl">none</span>.</p>
 
+  <!-- Beginning of the user's controls section -->
   <div id="tut4CtrlWrapper" class="controls-wrapper">
 
     <div class="controls-wrapper">
@@ -56,6 +63,7 @@
            class="btn btn-danger disabled">Disconnect</a>
       </div>
 
+      <!-- Publish/unpublish section -->
       <div class="ctrl-wrapper">
         <input id="publishVideoChckbx" type="checkbox" checked/> Publish video
         stream
@@ -97,13 +105,17 @@
 
     </div>
   </div>
+  <!-- End of the user's controls section -->
 
 </div>
 <div id="logsContainer"></div>
 
-
+<!--
+     Beginning of the templates section. There is only one template -  remote
+     video feed renderer
+-->
 <div id="templatesContainer">
-  <div id="rendererTmpl" class="render-wrapper-outer remote-renderer">
+  <div id="rendererTmpl" class="render-widget remote-renderer">
     <div>Remote user (user id: <span class="user-id-wrapper">undefined</span>).
       <span class="muted-indicator">Audio is muted</span>
     </div>
@@ -113,5 +125,8 @@
     </div>
   </div>
 </div>
+
+<!-- End of the templates section. -->
+
 </body>
 </html>
