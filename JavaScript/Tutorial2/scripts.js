@@ -115,7 +115,7 @@ CDOT.populateVideoCaptureDevices = function () {
  */
 CDOT.onCamSelected = function () {
   var selected = $(this).val();
-  CDO.getService().setVideoCaptureDevice(selected);
+  CDO.getService().setVideoCaptureDevice(CDO.createResponder(), selected);
 };
 
 /**
@@ -123,7 +123,7 @@ CDOT.onCamSelected = function () {
  */
 CDOT.onMicSelected = function () {
   var selected = $(this).val();
-  CDO.getService().setAudioCaptureDevice(selected);
+  CDO.getService().setAudioCaptureDevice(CDO.createResponder(), selected);
 };
 
 /**
@@ -131,7 +131,7 @@ CDOT.onMicSelected = function () {
  */
 CDOT.onSpkSelected = function () {
   var selected = $(this).val();
-  CDO.getService().setAudioOutputDevice(selected);
+  CDO.getService().setAudioOutputDevice(CDO.createResponder(), selected);
 };
 
 
