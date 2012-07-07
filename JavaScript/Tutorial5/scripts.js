@@ -77,6 +77,22 @@ CDOT.onPlatformReady = function () {
   CDOT.initServiceListener();
 };
 
+CDOT.startLocalVideo = function () {
+  log.debug("Starting local preview video feed");
+//  1. Prepare the result handler
+  var resultHandler = function (sinkId) {
+    log.debug("Local preview started. Rendering the sink with id: " + sinkId);
+    CDO.renderSink({
+                     sinkId:sinkId,
+                     containerId:'renderLocalPreview',
+                     mirror:true
+                   });
+  };
+
+//  2. Request the platform to start local video.
+  CDO.getService().startLocalVideo(CDO.createResponder(resultHandler));
+};
+
 CDOT.initServiceListener = function () {
   log.debug("Initializing the Cloudeo Service Listener");
 
@@ -113,41 +129,35 @@ CDOT.initServiceListener = function () {
 
 };
 
-CDOT.startLocalVideo = function () {
-  log.debug("Starting local preview video feed");
-//  1. Prepare the result handler
-  var resultHandler = function (sinkId) {
-    log.debug("Local preview started. Rendering the sink with id: " + sinkId);
-    CDO.renderSink({
-                     sinkId:sinkId,
-                     containerId:'renderLocalPreview',
-                     mirror:true
-                   });
-  };
-
-//  2. Request the platform to start local video.
-  CDO.getService().startLocalVideo(CDO.createResponder(resultHandler));
-};
-
 CDOT.connect = function () {
   log.debug("Establishing a connection to the Cloudeo Streaming Server");
 
-//  1. Prepare the connection descriptor by cloning the configuration and
+//  1. Disable the connect button to avoid connects cascade
+  $('#connectBtn').unbind('click').addClass('disabled');
+
+//  2. Prepare the connection descriptor by cloning the configuration and
 //     updating the URL and the token.
   var connDescriptor = $.extend({}, CDOT.CONNECTION_CONFIGURATION);
   connDescriptor.url = CDOT.STREAMER_URL_PFX + CDOT.SCOPE_ID;
   connDescriptor.token = CDOT.genRandomUserId() + '';
 
-//  2. Define the result handler
+//  3. Define the result handler
   var onSucc = function () {
     log.debug("Connected. Disabling connect button and enabling the disconnect");
-    $('#connectBtn').unbind('click').addClass('disabled');
     $('#disconnectBtn').click(CDOT.disconnect).removeClass('disabled');
     $('#localUserIdLbl').html(connDescriptor.token);
   };
 
-//  3. Request the SDK to establish the connection
-  CDO.getService().connect(CDO.createResponder(onSucc), connDescriptor);
+//  4. Define the error handler
+  var onErr = function (errCode, errMessage) {
+    log.error("Failed to establish the connection due to: " + errMessage +
+                  '(err code: ' + errCode + ')');
+//    Enable the connect button again
+    $('#connectBtn').click(CDOT.connect).removeClass('disabled');
+  };
+
+//  5. Request the SDK to establish the connection
+  CDO.getService().connect(CDO.createResponder(onSucc, onErr), connDescriptor);
 };
 
 CDOT.disconnect = function () {
