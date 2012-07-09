@@ -121,10 +121,10 @@ CDOT.initServiceListener = function () {
 //  5. Define the handler for the connection lost event
   listener.onConnectionLost = function (e) {
     log.warning('Got connection lost notification');
+    CDOT.disconnectHandler();
     if (e.errCode == CDO.ErrorCodes.Communication.COMM_REMOTE_END_DIED) {
       log.warn('Connection terminated due to internet connection issues. ' +
                    'Trying to reconnect in 5 seconds');
-      CDOT.disconnectHandler();
       CDOT.tryReconnect();
     }
   };
@@ -236,8 +236,9 @@ CDOT.tryReconnect = function () {
       CDOT.tryReconnect();
     };
 //    3. Try to connect
+    var connDescriptor = CDOT.genConnectionDescriptor();
     CDO.getService().connect(CDO.createResponder(succHandler, errHandler),
-                             CDOT.currentConnDescriptor);
+                             connDescriptor);
   }, 5000);
 
 };
@@ -277,19 +278,15 @@ CDOT.connect = function () {
 //  1. Disable the connect button to avoid a cascade of connect requests
   $('#connectBtn').unbind('click').addClass('disabled');
 
-//  2. Clone the video streaming configuration and create a connection descriptor
-//     using settings provided by the user
-  var connDescriptor = $.extend({}, CDOT.CONNECTION_CONFIGURATION);
+//  2. Get the scope id and generate the user id.
   CDOT.scopeId = $('#scopeIdTxtField').val();
-  connDescriptor.url = CDOT.STREAMER_URL_PFX + CDOT.scopeId;
-  connDescriptor.token = CDOT.genRandomUserId() + '';
-  connDescriptor.autopublishAudio = $('#publishAudioChckbx').is(':checked');
-  connDescriptor.autopublishVideo = $('#publishVideoChckbx').is(':checked');
+  CDOT.userId = CDOT.genRandomUserId();
 
 //  3. Define the result handler - delegates the processing to the
 //     postConnectHandler
+  var connDescriptor = CDOT.genConnectionDescriptor();
   var onSucc = function () {
-    CDOT.postConnectHandler(connDescriptor);
+    CDOT.postConnectHandler();
   };
 
 //  4. Define the error handler - enabled the connect button again
@@ -307,7 +304,7 @@ CDOT.disconnect = function () {
 //  1. Define the result handler
   function succHandler() {
     CDOT.scopeId = undefined;
-    CDOT.currentConnDescriptor = undefined;
+    CDOT.userId = undefined;
     CDOT.disconnectHandler();
   }
 
@@ -344,7 +341,7 @@ CDOT.disconnectHandler = function () {
  * Internet connectivity issues.
  * @param connDescriptor
  */
-CDOT.postConnectHandler = function (connDescriptor) {
+CDOT.postConnectHandler = function () {
   log.debug("Connected. Disabling connect button and enabling the disconnect");
 
 //  1. Enable the disconnect button
@@ -353,9 +350,16 @@ CDOT.postConnectHandler = function (connDescriptor) {
 //  2. Update the local user id label
   $('#localUserIdLbl').html(connDescriptor.token);
 
-//  3. Store the connection description. It is required to reestablish a
-//     connection in case of Internet connectivity issues.
-  CDOT.currentConnDescriptor = connDescriptor;
+};
+
+CDOT.genConnectionDescriptor = function () {
+//  Clone the video streaming configuration and create a connection descriptor
+//  using settings provided by the user
+  var connDescriptor = $.extend({}, CDOT.CONNECTION_CONFIGURATION);
+  connDescriptor.url = CDOT.STREAMER_URL_PFX + CDOT.scopeId;
+  connDescriptor.token = CDOT.userId + '';
+  connDescriptor.autopublishAudio = $('#publishAudioChckbx').is(':checked');
+  connDescriptor.autopublishVideo = $('#publishVideoChckbx').is(':checked');
 };
 
 /**
