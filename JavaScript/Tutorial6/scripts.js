@@ -120,7 +120,7 @@ CDOT.initServiceListener = function () {
 
 //  5. Define the handler for the connection lost event
   listener.onConnectionLost = function (e) {
-    log.warning('Got connection lost notification');
+    log.warn('Got connection lost notification');
     CDOT.disconnectHandler();
     if (e.errCode == CDO.ErrorCodes.Communication.COMM_REMOTE_END_DIED) {
       log.warn('Connection terminated due to internet connection issues. ' +
@@ -291,7 +291,7 @@ CDOT.connect = function () {
 
 //  4. Define the error handler - enabled the connect button again
   var onErr = function () {
-    $('#connectBtn').click(CDOT.connect()).removeClass('disabled');
+    $('#connectBtn').click(CDOT.connect).removeClass('disabled');
   };
 
 //  5. Request the SDK to establish a connection
@@ -360,6 +360,7 @@ CDOT.genConnectionDescriptor = function () {
   connDescriptor.token = CDOT.userId + '';
   connDescriptor.autopublishAudio = $('#publishAudioChckbx').is(':checked');
   connDescriptor.autopublishVideo = $('#publishVideoChckbx').is(':checked');
+  return connDescriptor;
 };
 
 /**
