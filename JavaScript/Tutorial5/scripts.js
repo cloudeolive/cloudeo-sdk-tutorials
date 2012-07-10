@@ -6,12 +6,6 @@
  * @date 26-06-2012 10:37
  */
 
-/**
- * Prefix of the streamer endpoint to use. Note that this is temporary and
- * should be deprecated soon.
- * @type {String}
- */
-CDOT.STREAMER_URL_PFX = '67.228.150.188:704/';
 
 /**
  * Id of media scope to connect to upon user's request.
@@ -138,7 +132,7 @@ CDOT.connect = function () {
 //  2. Prepare the connection descriptor by cloning the configuration and
 //     updating the URL and the token.
   var connDescriptor = $.extend({}, CDOT.CONNECTION_CONFIGURATION);
-  connDescriptor.url = CDOT.STREAMER_URL_PFX + CDOT.SCOPE_ID;
+  connDescriptor.scopeId = CDOT.SCOPE_ID;
   connDescriptor.token = CDOT.genRandomUserId() + '';
 
 //  3. Define the result handler

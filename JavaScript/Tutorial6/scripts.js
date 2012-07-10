@@ -7,12 +7,6 @@
  */
 
 /**
- * Streamer endpoint
- * @type {String}
- */
-CDOT.STREAMER_URL_PFX = '67.228.150.188:704/';
-
-/**
  * Streams quality configuration
  * @type {Object}
  */
@@ -356,7 +350,7 @@ CDOT.genConnectionDescriptor = function () {
 //  Clone the video streaming configuration and create a connection descriptor
 //  using settings provided by the user
   var connDescriptor = $.extend({}, CDOT.CONNECTION_CONFIGURATION);
-  connDescriptor.url = CDOT.STREAMER_URL_PFX + CDOT.scopeId;
+  connDescriptor.scopeId = CDOT.scopeId;
   connDescriptor.token = CDOT.userId + '';
   connDescriptor.autopublishAudio = $('#publishAudioChckbx').is(':checked');
   connDescriptor.autopublishVideo = $('#publishVideoChckbx').is(':checked');
