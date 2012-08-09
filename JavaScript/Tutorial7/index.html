@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cloudeo SDK Tutorial 7 - sendMessage API</title>
+
+  <!--Common scripts for all cloudeo tutorials -->
+  <script type="text/javascript"
+          src="../shared-assets/log4javascript.js"></script>
+  <script type="text/javascript"
+          src="../shared-assets/jquery-1.7.1.min.js"></script>
+
+  <script type="text/javascript" src="../shared-assets/scripts.js"></script>
+
+  <!-- Tutorial - specific script file -->
+  <script type="text/javascript" src="scripts.js"></script>
+
+  <!-- Shared stylesheet -->
+  <link rel="stylesheet" type="text/css" href="../shared-assets/styles.css"/>
+  <link rel="stylesheet" type="text/css"
+        href="../shared-assets/bootstrap.min.css"/>
+</head>
+<body>
+<div class="main">
+  <h1>Cloudeo SDK Tutorial 7 - sendMessage API</h1>
+
+  <div class="chat-widget">
+    <div class="messages-sink">
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+      <div class="msg-itm">
+        <div class="msg-header">User <span class="userid-wrapper">123</span>
+        </div>
+        <div class="msg-content">Sends some message</div>
+      </div>
+
+    </div>
+
+    <div class="messages-input">
+      <textarea id="msgInput" placeholder="Type your message here..."></textarea>
+      <div>
+        <label for="targetSelect">
+          Send message to:
+        </label>
+        <select id="targetSelect">
+          <option value="0">ALL</option>
+        </select>
+        <a id="sendBtn" href="javascript://nop" class="btn btn-primary send-btn">Send</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+     Beginning of the templates section. There is only one template -  remote
+     video feed renderer
+-->
+<div id="templatesContainer">
+  <div id="msgTmpl" class="msg-itm">
+    <div class="msg-header">User <span class="userid-wrapper"></span></div>
+    <div class="msg-content"></div>
+  </div>
+
+  <div id="sendToSomeoneBtnTmpl" class="send-btn-wrapper">
+    <a href="javascript://nop">Send to all</a>
+  </div>
+</div>
+
+<div id="logsContainer"></div>
+<div id="pluginContainer"></div>
+</body>
+</html>
