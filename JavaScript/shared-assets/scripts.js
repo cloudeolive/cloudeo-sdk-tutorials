@@ -47,7 +47,7 @@ CDOT.initCloudeoLogging = function () {
 /**
  * Initializes the Cloudeo SDK.
  */
-CDOT.initializeCloudeoQuick = function (completeHandler) {
+CDOT.initializeCloudeoQuick = function (completeHandler, options) {
   log.debug("Initializing the Cloudeo SDK");
   var initListener = new CDO.PlatformInitListener();
   initListener.onInitStateChanged = function (e) {
@@ -63,7 +63,7 @@ CDOT.initializeCloudeoQuick = function (completeHandler) {
         log.error("Got unsupported init state: " + e.state);
     }
   };
-  CDO.initPlatform(initListener);
+  CDO.initPlatform(initListener, options);
 };
 
 

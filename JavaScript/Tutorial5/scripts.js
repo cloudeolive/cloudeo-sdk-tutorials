@@ -133,7 +133,7 @@ CDOT.connect = function () {
 //     updating the URL and the token.
   var connDescriptor = $.extend({}, CDOT.CONNECTION_CONFIGURATION);
   connDescriptor.scopeId = CDOT.SCOPE_ID;
-  connDescriptor.token = CDOT.genRandomUserId() + '';
+  connDescriptor.token = CDOT.genRandomUserId() ;
 
 //  3. Define the result handler
   var onSucc = function () {

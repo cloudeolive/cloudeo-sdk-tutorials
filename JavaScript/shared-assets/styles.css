@@ -143,6 +143,7 @@ h2#tutorialSubTitle {
 .messages-input textarea
 {
     width: 380px;
+    height: 45px;
     resize: none;
 }
 
@@ -182,3 +183,6 @@ h2#tutorialSubTitle {
     color: #888;
 }
 
+.msg-itm .direct-indicator.hidden {
+    visibility: hidden;
+}
